@@ -1,0 +1,39 @@
+config:
+    name: testcase description
+    variables: {}
+    verify: false
+teststeps:
+-   name: /wms/login.do
+    request:
+        data:
+            reqParam: '{"phone":"17362313866","pwd":"8a6f2805b4515ac12058e79e66539be9"}'
+        headers:
+            Accept: application/json, text/plain, */*
+            Accept-Encoding: gzip, deflate
+            Accept-Language: zh-CN,zh;q=0.9
+            Connection: keep-alive
+            Content-Length: '99'
+            Content-Type: application/x-www-form-urlencoded
+            Host: api.wms.jc-test.cn
+            Origin: http://pc.wms.jc-test.cn
+            Referer: http://pc.wms.jc-test.cn/
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36
+            optDevice: PC
+        method: POST
+        url: http://api.wms.jc-test.cn/wms/login.do
+    extract:
+    -   loginToken: content.loginToken
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=UTF-8
+    -   eq:
+        - body.code
+        - 200
+    -   eq:
+        - body.msg
+        - 成功！
